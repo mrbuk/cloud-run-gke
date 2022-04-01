@@ -7,7 +7,7 @@ Simple script that helps with the installation of Cloud Run for Anthos on a GKE 
 The script executes the follwoing steps:
  1. register a GKE cluster to Anthos Fleets
  2. install Anthos Service Mesh 1.12 in-cluster control plane
- 3. deploy Istio IngressGateway in private/public mode
+ 3. deploy [Istio IngressGateway](https://github.com/GoogleCloudPlatform/anthos-service-mesh-packages/tree/main/samples/gateways/istio-ingressgateway) in private/public mode
  4. enable Cloud Run for Anthos in private/public mode
 
 This script expects the following tools to be installed
