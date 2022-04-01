@@ -19,7 +19,7 @@ Additionally kubectl access to the GKE cluster from the machine is required.
 
 It works for GKE private or public clusters
 
-## Execution
+## Script based execution
 
 Requirements:
 - GKE cluster deployed (_Anthos Service Mesh requires at least 8 vCPUs. If the machine type has 4 vCPUs, your cluster must have at least 2 nodes. If the machine type has 8 vCPUs, the cluster only needs 1 node. If you need to add nodes, see Resizing a cluster._)
@@ -36,18 +36,26 @@ without opening `tcp:15017` the istio-ingressgateway replicaset will not create 
 
 ```
 # clone the repository
-git clone https://github.com/mrbuk/cloud-run-gke
+git clone https://github.com/mrbuk/cloud-run-gke && cd cloud-run-gke
 
 # private cluster - deploys Istio Ingress Gateway with Private LB-IP
 ./enable_cloudrun.sh -p my-project-abc -c internal-cluster -l europe-west1-c -s private
 
 # public cluster - deploys Istio Ingress Gateway with Public LB-IP
-./enable_cloudrun.sh -p my-project-abc -c internal-cluster -l europe-west1-c -s public
+./enable_cloudrun.sh -p my-project-abc -c external-cluster -l europe-west1-c -s public
 ```
 
-## Script commands
+Afterwards you should be able to deploy to Cloud Run e.g.
 
-The `enable_cloudrun.sh` script wraps the following commands:
+```
+gcloud run deploy internal-01 --image gcr.io/cloudrun/hello --cluster=internal-cluster
+
+gcloud run deploy external-01 --image gcr.io/cloudrun/hello --cluster=external-cluster
+```
+
+## Manual execution
+
+If you prefer to run the commands manually instead of using `enable_cloudrun.sh`:
 
 ```
 # register cluster with fleet
